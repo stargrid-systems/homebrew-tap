@@ -7,6 +7,13 @@ class AvrGcc < Formula
   license "GPL-3.0-or-later" => { with: "GCC-exception-3.1" }
   head "https://gcc.gnu.org/git/gcc.git", branch: "master"
 
+  # Pinned to the GCC 15 series. Major bumps change AVR code generation and
+  # avr-libc compatibility, so they are done by hand after testing.
+  livecheck do
+    url :stable
+    regex(%r{href=["']?gcc[._-]v?(15(?:\.\d+)+)(?:/?["' >]|\.t)}i)
+  end
+
   # The macOS bottles are built on systems with the CLT installed, and do not
   # work out of the box on Xcode-only systems due to an incorrect sysroot.
   pour_bottle? only_if: :clt_installed
