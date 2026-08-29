@@ -40,6 +40,9 @@ class Simavr < Formula
   end
 
   test do
+    # Stop the AVR compiler picking up the host SDK headers.
+    ENV.delete "CPATH"
+
     (testpath/"blink.c").write <<~C
       #include <avr/io.h>
       int main(void) {
