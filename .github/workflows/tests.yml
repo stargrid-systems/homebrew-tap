@@ -16,6 +16,8 @@ defaults:
 jobs:
   test-bot:
     strategy:
+      # A flake in one job should not discard the other's build.
+      fail-fast: false
       matrix:
         os: [ macos-26 ]
         include:
