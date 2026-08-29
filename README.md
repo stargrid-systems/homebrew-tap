@@ -5,7 +5,7 @@
 This tap provides a GNU AVR toolchain that builds and runs on both Linux and
 macOS.
 
-- `avr-binutils` (Binutils 2.46.0)
+- `avr-binutils` (Binutils 2.47)
 - `avr-gcc` (GCC 15.3.0, bundles AVR-Libc 2.3.2)
 - `simavr` (1.8)
 

@@ -6,6 +6,12 @@ class Simavr < Formula
   license "GPL-3.0-or-later"
   head "https://github.com/buserror/simavr.git", branch: "master"
 
+  # Upstream tags releases but does not publish GitHub releases.
+  livecheck do
+    url :head
+    regex(/^v?(\d+(?:\.\d+)+)$/i)
+  end
+
   depends_on "pkgconf" => :build
   depends_on "stargrid-systems/tap/avr-gcc"
 
@@ -34,6 +40,9 @@ class Simavr < Formula
   end
 
   test do
+    # Stop the AVR compiler picking up the host SDK headers.
+    ENV.delete "CPATH"
+
     (testpath/"blink.c").write <<~C
       #include <avr/io.h>
       int main(void) {

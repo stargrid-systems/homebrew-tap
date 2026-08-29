@@ -7,6 +7,13 @@ class AvrGcc < Formula
   license "GPL-3.0-or-later" => { with: "GCC-exception-3.1" }
   head "https://gcc.gnu.org/git/gcc.git", branch: "master"
 
+  # Pinned to the GCC 15 series. Major bumps change AVR code generation and
+  # avr-libc compatibility, so they are done by hand after testing.
+  livecheck do
+    url :stable
+    regex(%r{href=["']?gcc[._-]v?(15(?:\.\d+)+)(?:/?["' >]|\.t)}i)
+  end
+
   # The macOS bottles are built on systems with the CLT installed, and do not
   # work out of the box on Xcode-only systems due to an incorrect sysroot.
   pour_bottle? only_if: :clt_installed
@@ -18,11 +25,12 @@ class AvrGcc < Formula
   depends_on "stargrid-systems/tap/avr-binutils"
   depends_on "zstd"
 
-  uses_from_macos "zlib"
-
   on_linux do
     # See the comment in avr-binutils.
     depends_on "gpatch" => :build
+    # GCC links libz via --with-system-zlib. Match avr-binutils so the
+    # dependency is direct rather than inherited.
+    depends_on "zlib-ng-compat"
   end
 
   resource "avr-libc" do
@@ -32,8 +40,8 @@ class AvrGcc < Formula
 
   patch do
     on_macos do
-      url "https://raw.githubusercontent.com/Homebrew/homebrew-core/1cf441a0/Patches/gcc/gcc-15.1.0.diff"
-      sha256 "360fba75cd3ab840c2cd3b04207f745c418df44502298ab156db81d41edf3594"
+      url "https://raw.githubusercontent.com/Homebrew/homebrew-core/6e8384b4/Patches/gcc/gcc-15.3.0.diff"
+      sha256 "f4e237594326286dc163230ebec0e763a868951649fb62e3fb0ac9c1416d0cdd"
     end
   end
 
