@@ -10,6 +10,12 @@ class AvrBinutils < Formula
     formula "binutils"
   end
 
+  bottle do
+    root_url "https://ghcr.io/v2/stargrid-systems/tap"
+    sha256 arm64_tahoe:  "61d241d104af272f95b44bb5a1328795925cdbd67e3f0f8a8a407a1e8f6965ed"
+    sha256 x86_64_linux: "8f87da09dc630b827eb7980cc47684ea5770291088c9d80a51c55b435d30f37a"
+  end
+
   depends_on "pkgconf" => :build
   depends_on "zstd"
 
