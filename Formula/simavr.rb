@@ -12,6 +12,13 @@ class Simavr < Formula
     regex(/^v?(\d+(?:\.\d+)+)$/i)
   end
 
+  bottle do
+    root_url "https://ghcr.io/v2/stargrid-systems/tap"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:  "af2c575c572366f1a6abad1730a6c958f2c8be46022c6eeda31bc4a9fc51ffc4"
+    sha256 cellar: :any,                 x86_64_linux: "b0c3879daac5ef620625201a035e09fd96539d8f02b59e2e9006bc8c3a3f15a2"
+  end
+
   depends_on "pkgconf" => :build
   depends_on "stargrid-systems/tap/avr-gcc"
 
