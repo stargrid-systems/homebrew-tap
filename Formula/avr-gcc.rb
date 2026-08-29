@@ -14,6 +14,13 @@ class AvrGcc < Formula
     regex(%r{href=["']?gcc[._-]v?(15(?:\.\d+)+)(?:/?["' >]|\.t)}i)
   end
 
+  bottle do
+    root_url "https://ghcr.io/v2/stargrid-systems/tap"
+    rebuild 1
+    sha256 arm64_tahoe:  "c22405ed360a37291783fe7746144832baa84d83457547ea7c8689c2564ffd3c"
+    sha256 x86_64_linux: "2436fc2b426d880d4d9642c33d3e80cf99a5c6b09b786e46c4579fbe5af995cd"
+  end
+
   # The macOS bottles are built on systems with the CLT installed, and do not
   # work out of the box on Xcode-only systems due to an incorrect sysroot.
   pour_bottle? only_if: :clt_installed
